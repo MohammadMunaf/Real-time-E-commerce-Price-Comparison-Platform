@@ -1,10 +1,4 @@
 
-The error you're encountering is likely due to permission issues when running the npm i command inside the Docker container. To resolve this, you can follow the best practice of using a non-root user in your Dockerfile. Here's an updated version of your Dockerfile:
-
-Dockerfile
-Copy code
-FROM ghcr.io/puppeteer/puppeteer:21.0.2
-
 # Create a non-root user
 RUN useradd -m -d /home/nodeuser -s /bin/bash nodeuser
 
