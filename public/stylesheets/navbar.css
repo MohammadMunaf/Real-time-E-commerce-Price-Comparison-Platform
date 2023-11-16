@@ -1,0 +1,39 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    height: 77px;
+    background-color: black;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: rgb(246, 244, 244);
+    margin: 0 0 0 105px;
+}
+
+.links {
+    margin-right: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.links a {
+    font-size: medium;
+}
+.links a:hover{
+    color:rgb(153, 207, 219);
+    transition: all 1s;
+}
+
+.bi-bag {
+    margin-left: 35px;
+    font-size:xx-large;
+    color: white;
+}
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: lighter;
+}

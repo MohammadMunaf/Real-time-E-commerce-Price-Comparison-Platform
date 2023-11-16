@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/show.css">
+    <title>Price Comparison</title>
+</head>
+
+<body>
+    <%- include('partials/navbar')%>
+        <form class="form d-flex justify-content-center align-items-center mt-5" action="/show" method="post"
+            id="searchForm">
+            <input class="form-control w-25" type="text" placeholder="Search" aria-label="Search" id="input"
+                name="input">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <div class="content">
+            <%if(amazonp.length>0){%>
+                <h2>Amazon</h2>
+                <section class="amazon">
+                    <%for(item of amazonp){%>
+                        <a href="<%=item.link%>" class="card-link" target="_blank">
+                            <div class="card mx-2" style="width: 18em; height:fit-content">
+                                <img src="<%=item.url%>" class="card-img-top text-center" alt=" ">
+                                <div class="card-body pb-0">
+                                    <p class="card-title mb-1" style="font-size: 12px; height:fit-content">
+                                        <%=item.title%>
+                                    </p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" style="color: rgb(1, 94, 1); font-weight: bold;">
+                                        <%=item.price%>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                        <%}%>
+                            <%}else{%>
+                                <div class="elseCondition">NOT FOUND</div>
+                                <%}%>
+                </section>
+                <h2>Flipkart</h2>
+                <%if(flipkartp.length>0){%>
+                    <section class="flipkart">
+                        <%for(item of flipkartp){%>
+                            <a href="<%=item.link%>" class="card-link" target="_blank">
+                                <div class="card mx-2" style="width: 18em; height:fit-content">
+                                    <img src="<%=item.url%>" class="card-img-top" alt=" ">
+                                    <div class="card-body">
+                                        <p class="card-title m-0 " style="font-size: 12px; height:fit-content">
+                                            <%=item.title%>
+                                        </p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" style="color: rgb(1, 94, 1); font-weight: bold;">
+                                            <%=item.price%>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </a>
+                            <%}%>
+                    <%}else{%>
+                        <div class="elseCondition">NOT FOUND</div>
+                        <%}%>
+                    </section>
+                   
+        </div>
+</body>
+
+</html>

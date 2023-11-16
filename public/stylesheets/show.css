@@ -1,0 +1,46 @@
+.content {
+    display: block;
+}
+
+.amazon {
+    display: flex;
+    max-height: fit-content;
+    min-height: 100px;
+    margin-bottom: 50px;
+    margin: 0 50px 50px 25px;
+}
+
+.flipkart {
+    display: flex;
+    max-height: fit-content;
+    min-height: 100px;
+    margin: 0 50px 50px 25px;
+}
+
+/* .items {
+    max-width: 25%;
+} */
+
+img {
+    max-width: 50%;
+    max-height: 50%;
+}
+
+.content h2 {
+    margin-left: 50px;
+}
+
+.elseCondition {
+    margin-left: 50px;
+    color: red;
+    font-weight: bolder;
+}
+
+.card:hover {
+    transition: all 1s;
+    opacity: 0.9;
+    border-color: rgb(64, 64, 161);
+    box-shadow: 0 0.5em 0.5em -0.2em rgb(64, 64, 161);
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
