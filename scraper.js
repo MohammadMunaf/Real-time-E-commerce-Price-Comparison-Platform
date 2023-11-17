@@ -19,7 +19,7 @@ exports.Amazon = async function (input) {
     const browser = await puppeteer.launch({
         headless: true,
         executablePath: process.env.NODE_ENV === "production"
-            ? '/usr/bin/google-chrome'
+            ? '/usr/bin/google-chrome-stable'
             : puppeteer.executablePath(),
         args: [
             '--no-sandbox',
@@ -84,7 +84,7 @@ exports.Flipkart = async function (input) {
             //         : puppeteer.executablePath(),
             headless: true,
             executablePath: process.env.NODE_ENV === "production"
-                ? '/usr/bin/google-chrome'
+                ? '/usr/bin/google-chrome-stable'
                 : puppeteer.executablePath(),
             args: [
                 '--no-sandbox',
