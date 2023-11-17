@@ -16,8 +16,16 @@ const amazonProduct = require('./schema/amazon');
 
 exports.Amazon = async function (input) {
     //console.log(input);
-    const browser = await puppeteer.launch(
-      
+    const browser = await puppeteer.launch({
+        headless: true,
+        executablePath: process.env.NODE_ENV === "production"
+            ? '/usr/bin/chromium-browser'
+            : puppeteer.executablePath(),
+        args: [
+            '--no-sandbox',
+            '--disable-gpu',
+        ]
+    }
     );
     try {
         const page = await browser.newPage();
@@ -74,12 +82,14 @@ exports.Flipkart = async function (input) {
             //     process.env.NODE_ENV === "production"
             //         ? process.env.PUPPETEER_EXECUTABLE_PATH
             //         : puppeteer.executablePath(),
-             headless: true,
-       executablePath: '/usr/bin/chromium-browser',
-       args: [
-         '--no-sandbox',
-         '--disable-gpu',
-       ]
+            headless: true,
+            executablePath: process.env.NODE_ENV === "production"
+                ? '/usr/bin/chromium-browser'
+                : puppeteer.executablePath(),
+            args: [
+                '--no-sandbox',
+                '--disable-gpu',
+            ]
         }
     );
     try {
