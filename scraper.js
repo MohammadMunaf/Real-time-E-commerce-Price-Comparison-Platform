@@ -17,12 +17,14 @@ const amazonProduct = require('./schema/amazon');
 exports.Amazon = async function (input) {
     //console.log(input);
     const browser = await puppeteer.launch({
+        args: [
+            "--disable-setuid-sandbox",
+            "--no-sandbox",
+            "--single-process",
+            "--no-zygote",
+        ],
         headless: true,
         executablePath: '/usr/bin/chromium-browser',
-        args: [
-          '--no-sandbox',
-          '--disable-gpu',
-        ]
     });
     const page = await browser.newPage();
     await page.goto(`https://www.amazon.in/s?k=${input}`)
@@ -64,12 +66,17 @@ exports.Amazon = async function (input) {
 exports.Flipkart = async function (input) {
     const browser = await puppeteer.launch(
         {
-            headless: true,
-            executablePath: '/usr/bin/chromium-browser',
             args: [
-              '--no-sandbox',
-              '--disable-gpu',
-            ]
+                "--disable-setuid-sandbox",
+                "--no-sandbox",
+                "--single-process",
+                "--no-zygote",
+            ],
+            headless: true,
+            executablePath:
+            process.env.NODE_ENV==="production"
+            ?process.env.PUPPETEER_EXECUTABLE_PATH
+            :puppeteer.executablePath(),
         }
     );
     const page = await browser.newPage();
