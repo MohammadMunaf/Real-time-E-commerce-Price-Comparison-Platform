@@ -17,8 +17,8 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <div class="content">
+            <h2>Amazon</h2>
             <%if(amazonp.length>0){%>
-                <h2>Amazon</h2>
                 <section class="amazon">
                     <%for(item of amazonp){%>
                         <a href="<%=item.link%>" class="card-link" target="_blank">
@@ -36,7 +36,7 @@
                                 </ul>
                             </div>
                         </a>
-                        <%}%>
+            <%}%>
                             <%}else{%>
                                 <div class="elseCondition">NOT FOUND</div>
                                 <%}%>
