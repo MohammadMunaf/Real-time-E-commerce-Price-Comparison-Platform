@@ -17,7 +17,7 @@ const amazonProduct = require('./schema/amazon');
 exports.Amazon = async function (input) {
     //console.log(input);
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: "new",
         executablePath: process.env.NODE_ENV === "production"
             ? '/usr/bin/google-chrome-stable'
             : puppeteer.executablePath(),
@@ -82,7 +82,7 @@ exports.Flipkart = async function (input) {
             //     process.env.NODE_ENV === "production"
             //         ? process.env.PUPPETEER_EXECUTABLE_PATH
             //         : puppeteer.executablePath(),
-            headless: true,
+            headless: "new",
             executablePath: process.env.NODE_ENV === "production"
                 ? '/usr/bin/google-chrome-stable'
                 : puppeteer.executablePath(),
