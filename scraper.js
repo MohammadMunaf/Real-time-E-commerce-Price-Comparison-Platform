@@ -16,16 +16,17 @@ const amazonProduct = require('./schema/amazon');
 
 exports.Amazon = async function (input) {
     //console.log(input);
-    const browser = await puppeteer.launch({
-        headless: "new",
-        executablePath: process.env.NODE_ENV === "production"
-            ? '/usr/bin/google-chrome-stable'
-            : puppeteer.executablePath(),
-        args: [
-            '--no-sandbox',
-            '--disable-gpu',
-        ]
-    }
+    const browser = await puppeteer.launch(
+        {
+            headless: "new",
+            executablePath: process.env.NODE_ENV === "production"
+                ? '/usr/bin/google-chrome-stable'
+                : puppeteer.executablePath(),
+            args: [
+                '--no-sandbox',
+                '--disable-gpu',
+            ]
+        }
     );
     try {
         const page = await browser.newPage();
