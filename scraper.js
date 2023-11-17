@@ -28,44 +28,40 @@ exports.Amazon = async function (input) {
             ]
         }
     );
-    try {
-        const page = await browser.newPage();
-        await page.goto(`https://www.amazon.in/s?k=${input}`)
+    const page = await browser.newPage();
+    await page.goto(`https://www.amazon.in/s?k=${input}`)
 
-        const limit = 10;
+    const limit = 10;
 
-        const elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
-            const extractedData = [];
+    const elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
+        const extractedData = [];
 
-            for (const section of sections.slice(0, limit)) {
-                try {
-                    const innerElements = section.querySelectorAll('.a-size-medium');
-                    const imgs = section.querySelector('.s-image').src;
-                    const prices = section.querySelector('.a-price .a-offscreen').textContent;
-                    const rating = section.querySelector('.a-section.a-spacing-none.a-spacing-top-micro').textContent;
-                    const link = section.querySelector('.a-link-normal').href;
-                    const sectionData = [];
+        for (const section of sections.slice(0, limit)) {
+            try {
+                const innerElements = section.querySelectorAll('.a-size-medium');
+                const imgs = section.querySelector('.s-image').src;
+                const prices = section.querySelector('.a-price .a-offscreen').textContent;
+                const rating = section.querySelector('.a-section.a-spacing-none.a-spacing-top-micro').textContent;
+                const link = section.querySelector('.a-link-normal').href;
+                const sectionData = [];
 
-                    for (const innerElement of innerElements) {
-                        sectionData.push(innerElement.textContent);
-                    }
-                    const obj = {};
-                    obj.url = imgs;
-                    obj.title = sectionData;
-                    obj.price = prices;
-                    obj.rating = rating;
-                    obj.link = link
-                    extractedData.push(obj);
-                } catch (e) {
-                    console.log("error")
+                for (const innerElement of innerElements) {
+                    sectionData.push(innerElement.textContent);
                 }
+                const obj = {};
+                obj.url = imgs;
+                obj.title = sectionData;
+                obj.price = prices;
+                obj.rating = rating;
+                obj.link = link
+                extractedData.push(obj);
+            } catch (e) {
+                console.log("error")
             }
-            return extractedData;
-        }, limit);
-        amazonProduct.insertMany(elements);
-    } catch (e) {
-        console.log(e);
-    }
+        }
+        return extractedData;
+    }, limit);
+    amazonProduct.insertMany(elements);
     await browser.close();
 }
 
@@ -127,6 +123,5 @@ exports.Flipkart = async function (input) {
     } catch (e) {
         console.log(e);
     }
-
     await browser.close();
 }
