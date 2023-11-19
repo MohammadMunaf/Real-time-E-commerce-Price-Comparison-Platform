@@ -18,52 +18,54 @@ exports.Amazon = async function (input) {
     //console.log(input);
     const browser = await puppeteer.launch(
         {
-            headless:"new",
+            headless: "new",
             executablePath: process.env.NODE_ENV === "production"
-            ? '/usr/bin/google-chrome-stable'
-            : puppeteer.executablePath(),
-        args: [
-            '--no-sandbox',
-            '--disable-gpu',
-        ]
+                ? '/usr/bin/google-chrome-stable'
+                : puppeteer.executablePath(),
+            args: [
+                '--no-sandbox',
+                '--disable-gpu',
+            ]
         }
     );
-    const page = await browser.newPage();
-    const navigationPromise = page.waitForNavigation();
-    await page.goto(`https://www.amazon.in/s?k=${input}`)
+    try {
+        const page = await browser.newPage();
+        await page.goto(`https://www.amazon.in/s?k=${input}`)
 
-    const limit = 10;
+        const limit = 10;
 
-    const elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
-        const extractedData = [];
+        const elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
+            const extractedData = [];
 
-        for (const section of sections.slice(0, limit)) {
-            try {
-                const innerElements = section.querySelectorAll('.a-size-medium');
-                const imgs = section.querySelector('.s-image').src;
-                const prices = section.querySelector('.a-price .a-offscreen').textContent;
-                const rating = section.querySelector('.a-section.a-spacing-none.a-spacing-top-micro').textContent;
-                const link = section.querySelector('.a-link-normal').href;
-                const sectionData = [];
+            for (const section of sections.slice(0, limit)) {
+                try {
+                    const innerElements = section.querySelectorAll('.a-size-medium');
+                    const imgs = section.querySelector('.s-image').src;
+                    const prices = section.querySelector('.a-price .a-offscreen').textContent;
+                    const rating = section.querySelector('.a-section.a-spacing-none.a-spacing-top-micro').textContent;
+                    const link = section.querySelector('.a-link-normal').href;
+                    const sectionData = [];
 
-                for (const innerElement of innerElements) {
-                    sectionData.push(innerElement.textContent);
+                    for (const innerElement of innerElements) {
+                        sectionData.push(innerElement.textContent);
+                    }
+                    const obj = {};
+                    obj.url = imgs;
+                    obj.title = sectionData;
+                    obj.price = prices;
+                    obj.rating = rating;
+                    obj.link = link
+                    extractedData.push(obj);
+                } catch (e) {
+                    console.log("error")
                 }
-                const obj = {};
-                obj.url = imgs;
-                obj.title = sectionData;
-                obj.price = prices;
-                obj.rating = rating;
-                obj.link = link
-                extractedData.push(obj);
-            } catch (e) {
-                console.log("error")
             }
-        }
-        return extractedData;
-    }, limit);
-    await navigationPromise;
-    amazonProduct.insertMany(elements);
+            return extractedData;
+        }, limit);
+        amazonProduct.insertMany(elements);
+    } catch (e) {
+        console.log(e);
+    }
     await browser.close();
 }
 
