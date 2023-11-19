@@ -1,6 +1,7 @@
 FROM node:slim
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+    PUPPETEER_EXECUTABLE_PATH=/path/to/Chrome
 
 RUN apt-get update && apt-get install gnupg wget -y && \
     wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg && \

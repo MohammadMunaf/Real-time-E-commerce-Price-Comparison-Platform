@@ -18,14 +18,14 @@ exports.Amazon = async function (input) {
     //console.log(input);
     const browser = await puppeteer.launch(
         {
+            headless: "new",
+            executablePath: process.env.NODE_ENV === "production"
+                ? process.env.PUPPETEER_EXECUTABLE_PATH
+                : puppeteer.executablePath(),
             args: [
                 '--no-sandbox',
                 '--disable-gpu',
-            ],
-            headless: "new",
-            executablePath: process.env.NODE_ENV === "production"
-                ? '/usr/bin/google-chrome-stable'
-                : puppeteer.executablePath(),
+            ]
         }
     );
     try {
@@ -72,31 +72,15 @@ exports.Amazon = async function (input) {
 exports.Flipkart = async function (input) {
     const browser = await puppeteer.launch(
         {
-            // args: [
-            //     "--disable-setuid-sandbox",
-            //     "--no-sandbox",
-            //     "--single-process",
-            //     "--no-zygote",
-            // ],
-            // headless: true,
-            // executablePath:
-            //     process.env.NODE_ENV === "production"
-            //         ? process.env.PUPPETEER_EXECUTABLE_PATH
-            //         : puppeteer.executablePath(),
-
             args: [
                 '--no-sandbox',
                 '--disable-gpu',
-                "--disable-setuid-sandbox",
-                "--no-sandbox",
-                "--single-process",
-                "--no-zygote",
             ],
-            headless: "new",
-            executablePath: process.env.NODE_ENV === "production"
-                ? '/usr/bin/google-chrome-stable'
-                : puppeteer.executablePath(),
-           
+             headless: "new",
+             executablePath:
+                 process.env.NODE_ENV === "production"
+                     ? process.env.PUPPETEER_EXECUTABLE_PATH
+                     : puppeteer.executablePath(),
         }
     );
     try {
