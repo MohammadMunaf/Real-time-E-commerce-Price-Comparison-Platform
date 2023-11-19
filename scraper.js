@@ -22,9 +22,9 @@ exports.Amazon = async function (input) {
                 '--no-sandbox',
                 '--disable-gpu',
             ],
-            headless: "new",
+            headless: "true",
             executablePath: process.env.NODE_ENV === "production"
-                ? process.env.PUPPETEER_EXECUTABLE_PATH
+                ? '/usr/bin/google-chrome-stable'
                 : puppeteer.executablePath(),
         }
     );
@@ -83,14 +83,20 @@ exports.Flipkart = async function (input) {
             //     process.env.NODE_ENV === "production"
             //         ? process.env.PUPPETEER_EXECUTABLE_PATH
             //         : puppeteer.executablePath(),
-            headless: "new",
-            executablePath: process.env.NODE_ENV === "production"
-                ? '/usr/bin/google-chrome-stable'
-                : puppeteer.executablePath(),
+
             args: [
                 '--no-sandbox',
                 '--disable-gpu',
-            ]
+                "--disable-setuid-sandbox",
+                "--no-sandbox",
+                "--single-process",
+                "--no-zygote",
+            ],
+            headless: "true",
+            executablePath: process.env.NODE_ENV === "production"
+                ? '/usr/bin/google-chrome-stable'
+                : puppeteer.executablePath(),
+           
         }
     );
     try {
