@@ -24,7 +24,7 @@ exports.Amazon = async function (input) {
             ],
             headless: "new",
             executablePath: process.env.NODE_ENV === "production"
-                ? '/usr/bin/chromium-browser'
+                ? '/usr/bin/google-chrome-stable'
                 : puppeteer.executablePath(),
         }
     );
@@ -94,7 +94,7 @@ exports.Flipkart = async function (input) {
             ],
             headless: "new",
             executablePath: process.env.NODE_ENV === "production"
-                ? '/usr/bin/chromium-browser'
+                ? '/usr/bin/google-chrome-stable'
                 : puppeteer.executablePath(),
            
         }
