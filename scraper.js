@@ -18,17 +18,18 @@ exports.Amazon = async function (input) {
     //console.log(input);
     const browser = await puppeteer.launch(
         {
-            headless: "new",
+            headless:"new",
             executablePath: process.env.NODE_ENV === "production"
-                ? '/usr/bin/google-chrome-stable'
-                : puppeteer.executablePath(),
-            args: [
-                '--no-sandbox',
-                '--disable-gpu',
-            ]
+            ? '/usr/bin/google-chrome-stable'
+            : puppeteer.executablePath(),
+        args: [
+            '--no-sandbox',
+            '--disable-gpu',
+        ]
         }
     );
     const page = await browser.newPage();
+    const navigationPromise = page.waitForNavigation();
     await page.goto(`https://www.amazon.in/s?k=${input}`)
 
     const limit = 10;
@@ -61,6 +62,7 @@ exports.Amazon = async function (input) {
         }
         return extractedData;
     }, limit);
+    await navigationPromise;
     amazonProduct.insertMany(elements);
     await browser.close();
 }
