@@ -1,7 +1,6 @@
 FROM node:slim
 
-
-
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 RUN apt-get update && apt-get install gnupg wget -y && \
     wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg && \
@@ -11,9 +10,6 @@ RUN apt-get update && apt-get install gnupg wget -y && \
     rm -rf /var/lib/apt/lists/*
 
 FROM ghcr.io/puppeteer/puppeteer:21.0.2
-
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
 WORKDIR /usr/src/app  
 
