@@ -31,7 +31,7 @@ exports.Amazon = async function (input) {
     try {
         const page = await browser.newPage();
         await page.goto(`https://www.amazon.in/s?k=${input}`)
-        console.log("visited");
+        
         const limit = 10;
 
         const elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
@@ -62,6 +62,9 @@ exports.Amazon = async function (input) {
             }
             return extractedData;
         }, limit);
+        for(let element of elements){
+            console.log(element);
+        }
         amazonProduct.insertMany(elements);
     } catch (e) {
         console.log(e);
