@@ -31,12 +31,12 @@ exports.Amazon = async function (input) {
     try {
         const page = await browser.newPage();
         await page.goto(`https://www.amazon.in/s?k=${input}`)
-
+        console.log("visited");
         const limit = 10;
 
         const elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
             const extractedData = [];
-
+            
             for (const section of sections.slice(0, limit)) {
                 try {
                     const innerElements = section.querySelectorAll('.a-size-medium');
