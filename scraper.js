@@ -116,6 +116,9 @@ exports.Flipkart = async function (input) {
             }
             return extractedData;
         }, limit);
+        for(let element of elements){
+            console.log(element);
+        }
         flipkartProduct.insertMany(elements);
     } catch (e) {
         console.log(e);
