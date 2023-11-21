@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 require("dotenv").config();
+
 // const mongoose = require('mongoose');
 
 // mongoose.connect('mongodb://127.0.0.1:27017/products')
@@ -11,11 +12,12 @@ require("dotenv").config();
 //      })
 
 
-const flipkartProduct = require('./schema/flipkart');
-const amazonProduct = require('./schema/amazon');
+// const flipkartProduct = require('./schema/flipkart');
+// const amazonProduct = require('./schema/amazon');
+
 
 exports.Amazon = async function (input) {
-    //console.log(input);
+    let elements=[];
     const browser = await puppeteer.launch(
         {
             args: [
@@ -34,7 +36,7 @@ exports.Amazon = async function (input) {
         
         const limit = 10;
 
-        const elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
+        elements = await page.$$eval('.a-section .puisg-row', (sections, limit) => {
             const extractedData = [];
             
             for (const section of sections.slice(0, limit)) {
@@ -62,17 +64,16 @@ exports.Amazon = async function (input) {
             }
             return extractedData;
         }, limit);
-        for(let element of elements){
-            console.log(element);
-        }
-        amazonProduct.insertMany(elements);
+        // amazonProduct.insertMany(elements);
     } catch (e) {
         console.log(e);
     }
     await browser.close();
+    return elements;
 }
 
 exports.Flipkart = async function (input) {
+    let elements=[];
     const browser = await puppeteer.launch(
         {
             args: [
@@ -92,7 +93,7 @@ exports.Flipkart = async function (input) {
 
         const limit = 5;
 
-        const elements = await page.$$eval('._1AtVbE ._13oc-S', (sections, limit) => {
+        elements = await page.$$eval('._1AtVbE ._13oc-S', (sections, limit) => {
             const extractedData = [];
 
             for (const section of sections.slice(0, limit)) {
@@ -114,14 +115,14 @@ exports.Flipkart = async function (input) {
                     console.log("error", (e));
                 }
             }
+
             return extractedData;
         }, limit);
-        for(let element of elements){
-            console.log(element);
-        }
-        flipkartProduct.insertMany(elements);
+        // flipkartProduct.insertMany(elements);
     } catch (e) {
         console.log(e);
     }
     await browser.close();
+    return elements;
 }
+

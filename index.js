@@ -47,10 +47,10 @@ app.post('/show', async (req, res) => {
     await flipkartProduct.deleteMany();
     const { input } = req.body;
     //console.log(input);
-    await scraper.Amazon(input);
-    await scraper.Flipkart(input);
-    const amazonp = await amazonitem.find({});
-    const flipkartp = await flipkartitem.find({});
+    const amazonp=await scraper.Amazon(input);
+    const flipkartp=await scraper.Flipkart(input);
+    // const amazonp = await amazonitem.find({});
+    // const flipkartp = await flipkartitem.find({});
     res.render('show', { amazonp, flipkartp });
 })
 

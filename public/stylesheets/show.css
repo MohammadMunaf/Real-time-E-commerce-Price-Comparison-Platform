@@ -39,8 +39,8 @@ img {
 .card:hover {
     transition: all 1s;
     opacity: 0.9;
-    border-color: rgb(64, 64, 161);
-    box-shadow: 0 0.5em 0.5em -0.2em rgb(64, 64, 161);
+    border-color: rgb(173,216,230);
+    box-shadow: 0 0.5em 0.5em -0.2em rgb(173,216,230);
     transform: translateY(-0.25em);
     cursor: pointer;
 }
